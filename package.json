@@ -1,0 +1,17 @@
+{
+  "name": "aw-ext-minimal-board",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Agent Wrangler extension: a minimal board with stacked task lanes and one-row session cards.",
+  "license": "MIT",
+  "wranglerExtension": {
+    "id": "minimal-board",
+    "label": "Minimal board",
+    "description": "Stacks task lanes vertically and shrinks each session card to its title and status colour.",
+    "requires": []
+  },
+  "scripts": {
+    "test": "node --test"
+  }
+}
