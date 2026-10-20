@@ -64,3 +64,7 @@ test('each status has its own colour', () => {
   assert.ok(colours.every(Boolean), `missing a colour: ${colours}`);
   assert.equal(new Set(colours).size, colours.length);
 });
+
+test('the opened card keeps the blue selection fill', () => {
+  assert.match(css(), /#grid \.session-card\.selected[^{]*\{ background: color-mix\(in srgb, var\(--blue\)/);
+});

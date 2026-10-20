@@ -56,3 +56,9 @@
 /* A selected card normally expands to show more; keep it one row. */
 #grid .session-card.expanded { padding: 4px 10px 4px 14px; border-radius: 6px; }
 #grid .session-card.expanded .card-name { font-size: 12px; }
+
+/* The opened session keeps the host's blue selection fill over its status tint,
+   so its ring can't be mistaken for a done card's cyan one. The stripe still
+   shows its status. */
+#grid .session-card.selected,
+#grid .session-card.selected:hover { background: color-mix(in srgb, var(--blue) 22%, var(--surface)); }

@@ -14,7 +14,9 @@ server state.
 It is a styles-only extension: the manifest's `styles` sheet
 (`public/minimal-board.css`) does all the work, with no client script. The host adds the
 sheet when the extension is enabled and removes it when disabled. It needs host API
-`^1.0.0`. Every rule is scoped to `#grid`, so the detail panel is untouched. Focus mode
+`^1.0.0`. Every rule is scoped to `#grid`, so the detail panel is untouched. Opening a session
+keeps its card one row, with a blue selection fill and ring and its status stripe, and
+the detail panel opens as normal. Focus mode
 keeps its own layout, though its cards are compact too.
 
 ## Install
