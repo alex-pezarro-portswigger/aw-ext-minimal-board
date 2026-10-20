@@ -1,0 +1,58 @@
+/* Minimal board. Presentation only: the host adds this sheet while the
+   extension is enabled and removes it when disabled, which restores the normal
+   board. Every rule is scoped to #grid so the detail panel is untouched. */
+
+/* ── Lanes stack vertically ────────────────────────────────────────────────
+   renderGrid (app.js) sets the columns and rows inline, so the overrides need
+   !important. This copies the host's own one-column layout (#grid.single-column,
+   used when the terminal pane is very wide): one column, content-height rows,
+   and the board scrolls. Focus mode keeps its own layout. */
+#grid:not(.focus-mode) {
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-template-rows: none !important;
+  grid-auto-rows: max-content !important;
+  align-content: start;
+  overflow-y: auto;
+}
+#grid:not(.focus-mode) > * {
+  grid-column: 1 / -1 !important;
+  grid-row: auto !important;
+}
+#grid:not(.focus-mode) .task-body { flex: 0 0 auto; overflow-y: visible; }
+/* Empty ghost cells only matter while a drag arms the grid. */
+#grid:not(.focus-mode):not(.arming) > .new-task-drop { display: none; }
+#grid:not(.focus-mode).arming > .new-task-drop { min-height: 40px; }
+#grid .task-body { gap: 4px; padding: 6px; }
+
+/* ── One-row cards: status colour and title only ───────────────────────── */
+#grid .session-card {
+  --mb-status: var(--border);
+  padding: 4px 10px 4px 14px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--mb-status) 14%, var(--surface));
+}
+#grid .session-card:hover { background: color-mix(in srgb, var(--mb-status) 22%, var(--surface-2)); }
+#grid .session-card.unknown { --mb-status: var(--border-muted); }
+#grid .session-card.working,
+#grid .session-card.job { --mb-status: var(--green); }
+#grid .session-card.needs-you { --mb-status: var(--red); }
+#grid .session-card.just-finished { --mb-status: var(--just-finished); }
+
+/* The host's status bar, thinned to a stripe with no label. */
+#grid .session-card .card-bar {
+  left: 4px; top: 4px; bottom: 4px; width: 4px; border-radius: 2px;
+  background: var(--mb-status);
+}
+#grid .session-card .card-bar > span { display: none; }
+#grid .session-card.dormant .card-bar { background: transparent; }
+
+/* Everything but the title goes: chips, icons, folder and branch, sub-agents. */
+#grid .session-card .card-name-row > :not(.card-name),
+#grid .session-card .card-loc,
+#grid .session-card .card-meta,
+#grid .session-card .subagent-zone { display: none !important; }
+#grid .session-card .card-name { font-size: 12px; line-height: 18px; }
+
+/* A selected card normally expands to show more; keep it one row. */
+#grid .session-card.expanded { padding: 4px 10px 4px 14px; border-radius: 6px; }
+#grid .session-card.expanded .card-name { font-size: 12px; }
